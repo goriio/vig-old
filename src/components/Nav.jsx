@@ -90,7 +90,7 @@ export function Nav() {
   );
 
   return (
-    <Header>
+    <Header fixed>
       <Container>
         <Group sx={{ height: 60 }} position="apart" align="center">
           <Logo />

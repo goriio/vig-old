@@ -32,7 +32,7 @@ export function SignupForm() {
           icon={<BiLock />}
         />
         <Divider labelPosition="center" label="or" my="sm" />
-        <Button>Signup with Steam</Button>
+        <Button>Sign up with Steam</Button>
         <Center>
           <Text size="sm" mt="sm">
             Already have an account? <Link to="/login">Log in</Link>

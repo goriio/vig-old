@@ -1,4 +1,10 @@
-import { Group, Select, SimpleGrid, TextInput } from '@mantine/core';
+import {
+  Group,
+  MediaQuery,
+  Select,
+  SimpleGrid,
+  TextInput,
+} from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 import Item1 from '../assets/item-1.png';
 import Item2 from '../assets/item-2.png';
@@ -60,18 +66,52 @@ const itemsData = [
     image: Item3,
     price: 122.8,
   },
+  {
+    id: 10,
+    label: 'Ano to',
+    image: Item1,
+    price: 12.98,
+  },
+  {
+    id: 11,
+    label: 'Di ko alam tawag',
+    image: Item2,
+    price: 143.23,
+  },
+  {
+    id: 12,
+    label: '???',
+    image: Item3,
+    price: 122.8,
+  },
+  {
+    id: 13,
+    label: 'Di ko alam tawag',
+    image: Item2,
+    price: 143.23,
+  },
+  {
+    id: 14,
+    label: '???',
+    image: Item3,
+    price: 122.8,
+  },
 ];
 
 export function Home() {
   return (
     <>
-      <Group position="apart" mb="lg">
-        <TextInput
-          aria-label="Search"
-          placeholder="Search..."
-          icon={<BiSearch />}
-          size="md"
-        />
+      <Group position="right" mb="lg">
+        <MediaQuery largerThan="sm" styles={{ width: 'unset' }}>
+          <TextInput
+            aria-label="Search"
+            placeholder="Search..."
+            icon={<BiSearch />}
+            size="md"
+            sx={{ width: '100%' }}
+          />
+        </MediaQuery>
+        {/* 
         <Select
           aria-label="Sort"
           placeholder="Sort"
@@ -79,16 +119,17 @@ export function Home() {
             { value: 'date', label: 'Date' },
             { value: 'price', label: 'Price' },
           ]}
-          width={40}
-          size="md"
+          sx={{ width: '80px' }}
         />
+          */}
       </Group>
       <SimpleGrid
-        cols={4}
+        cols={6}
         breakpoints={[
-          { maxWidth: 755, cols: 3, spacing: 'sm' },
+          { maxWidth: 755, cols: 4, spacing: 'sm' },
           { maxWidth: 600, cols: 2, spacing: 'sm' },
         ]}
+        spacing="xs"
       >
         {itemsData.map((item) => (
           <ItemCard
