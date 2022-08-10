@@ -1,4 +1,4 @@
-import { Card, Group, SimpleGrid, TextInput } from '@mantine/core';
+import { Group, Select, SimpleGrid, TextInput } from '@mantine/core';
 import { BiSearch } from 'react-icons/bi';
 import Item1 from '../assets/item-1.png';
 import Item2 from '../assets/item-2.png';
@@ -65,11 +65,22 @@ const itemsData = [
 export function Home() {
   return (
     <>
-      <Group position="right" my="md">
+      <Group position="apart" mb="lg">
         <TextInput
           aria-label="Search"
           placeholder="Search..."
           icon={<BiSearch />}
+          size="md"
+        />
+        <Select
+          aria-label="Sort"
+          placeholder="Sort"
+          data={[
+            { value: 'date', label: 'Date' },
+            { value: 'price', label: 'Price' },
+          ]}
+          width={40}
+          size="md"
         />
       </Group>
       <SimpleGrid

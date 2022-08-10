@@ -48,6 +48,7 @@ const useStyles = createStyles((theme) => ({
     bottom: 0,
     padding: '2rem',
     background: theme.colors.dark[8],
+    zIndex: 9999,
   },
 }));
 
