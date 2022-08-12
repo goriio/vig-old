@@ -13,7 +13,7 @@ export function MainLayout() {
       </Container>
       <Footer p="md" mt="lg">
         <Container>
-          <Text size="sm">&copy; VIG</Text>
+          <Text size="sm">&copy; {new Date().getFullYear()} VIG</Text>
         </Container>
       </Footer>
     </>

@@ -1,14 +1,8 @@
-import {
-  Group,
-  MediaQuery,
-  Select,
-  SimpleGrid,
-  TextInput,
-} from '@mantine/core';
-import { BiSearch } from 'react-icons/bi';
+import { SimpleGrid, Title } from '@mantine/core';
 import Item1 from '../assets/item-1.png';
 import Item2 from '../assets/item-2.png';
 import Item3 from '../assets/item-3.png';
+import { Hero } from '../components/Hero';
 import { ItemCard } from '../components/ItemCard';
 
 const itemsData = [
@@ -101,28 +95,10 @@ const itemsData = [
 export function Home() {
   return (
     <>
-      <Group position="right" mb="lg">
-        <MediaQuery largerThan="sm" styles={{ width: 'unset' }}>
-          <TextInput
-            aria-label="Search"
-            placeholder="Search..."
-            icon={<BiSearch />}
-            size="md"
-            sx={{ width: '100%' }}
-          />
-        </MediaQuery>
-        {/* 
-        <Select
-          aria-label="Sort"
-          placeholder="Sort"
-          data={[
-            { value: 'date', label: 'Date' },
-            { value: 'price', label: 'Price' },
-          ]}
-          sx={{ width: '80px' }}
-        />
-          */}
-      </Group>
+      <Hero />
+      <Title order={3} mt="xl" mb="md">
+        Market
+      </Title>
       <SimpleGrid
         cols={6}
         breakpoints={[

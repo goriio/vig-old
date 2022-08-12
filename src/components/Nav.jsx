@@ -1,18 +1,24 @@
 import {
+  Avatar,
   Burger,
   Button,
   Container,
   createStyles,
   Group,
   Header,
-  MediaQuery,
+  Menu,
   Stack,
   Text,
+  TextInput,
+  useMantineTheme,
 } from '@mantine/core';
 import { NavLink, Link } from 'react-router-dom';
 import { Logo } from './Logo';
-import { BiBox, BiBorderAll, BiTime } from 'react-icons/bi';
+import { BiBox, BiBorderAll, BiArchiveOut, BiLogOut } from 'react-icons/bi';
 import { useState } from 'react';
+import { BiSearch } from 'react-icons/bi';
+import { useAuth } from '../contexts/AuthContext';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
   navLink: {
@@ -55,6 +61,9 @@ const useStyles = createStyles((theme) => ({
 export function Nav() {
   const [burgerOpened, setBurgerOpened] = useState(false);
   const { classes } = useStyles();
+  const { currentUser, handleSignOut } = useAuth();
+  const theme = useMantineTheme();
+  const smallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px`);
 
   const navLinks = (
     <>
@@ -63,12 +72,12 @@ export function Nav() {
         <Text>Market</Text>
       </NavLink>
       <NavLink className={classes.navLink} to="/hehe">
-        <BiTime />
-        <Text>Hehe</Text>
+        <BiArchiveOut />
+        <Text>Sell</Text>
       </NavLink>
       <NavLink className={classes.navLink} to="/sample">
         <BiBorderAll />
-        <Text>Sample</Text>
+        <Text>Inventory</Text>
       </NavLink>
     </>
   );
@@ -93,33 +102,60 @@ export function Nav() {
     <Header fixed>
       <Container>
         <Group sx={{ height: 60 }} position="apart" align="center">
+          <Burger
+            opened={burgerOpened}
+            onClick={() => setBurgerOpened((current) => !current)}
+            size="sm"
+            sx={{ display: smallScreen ? 'block' : 'none' }}
+          />
           <Logo />
-
-          <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-            <Burger
-              opened={burgerOpened}
-              onClick={() => setBurgerOpened((current) => !current)}
-              size="sm"
-            />
-          </MediaQuery>
           {burgerOpened && (
             <nav
               className={classes.drawer}
               onClick={() => setBurgerOpened((current) => !current)}
             >
               <Stack>
+                <TextInput
+                  aria-label="Search"
+                  placeholder="Search..."
+                  icon={<BiSearch />}
+                  size="md"
+                />
                 {navLinks}
                 {actionButtons}
               </Stack>
             </nav>
           )}
 
-          <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-            <Group>{navLinks}</Group>
-          </MediaQuery>
-          <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+          <Group sx={{ display: smallScreen ? 'none' : 'flex' }}>
+            {navLinks}
+          </Group>
+          <TextInput
+            aria-label="Search"
+            placeholder="Search..."
+            icon={<BiSearch />}
+            size="md"
+            sx={{ display: smallScreen ? 'none' : 'block' }}
+          />
+          {currentUser ? (
+            <Menu width={200} position="bottom-end">
+              <Menu.Target>
+                <Avatar src={currentUser.photoURL} radius="xl" size="sm" />
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>Account</Menu.Label>
+                <Menu.Item
+                  icon={<BiLogOut />}
+                  component="button"
+                  onClick={handleSignOut}
+                >
+                  Log out
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          ) : (
             <Group>{actionButtons}</Group>
-          </MediaQuery>
+          )}
         </Group>
       </Container>
     </Header>
