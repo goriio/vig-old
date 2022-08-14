@@ -24,15 +24,13 @@ const useStyles = createStyles((theme) => ({
   navLink: {
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    marginBottom: '12px',
+    gap: '8px',
     color: theme.white,
     fontSize: '1rem',
     fontWeight: 'bold',
     textDecoration: 'none',
 
     [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
-      marginBottom: '-4px',
       padding: '16px 12px',
     },
 
@@ -49,54 +47,37 @@ const useStyles = createStyles((theme) => ({
   drawer: {
     position: 'fixed',
     top: 60,
-    left: 0,
+    left: '-100%',
     right: 0,
-    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    gap: '1rem',
     padding: '2rem',
+    transition: '200ms',
+
+    [`@media (min-width: ${theme.breakpoints.sm}px)`]: {
+      position: 'static',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: 60,
+    },
+  },
+
+  active: {
+    left: 0,
     background: theme.colors.dark[8],
-    zIndex: 9999,
   },
 }));
 
 export function Nav() {
   const [burgerOpened, setBurgerOpened] = useState(false);
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const { currentUser, handleSignOut } = useAuth();
   const theme = useMantineTheme();
   const smallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px`);
-
-  const navLinks = (
-    <>
-      <NavLink className={classes.navLink} to="/">
-        <BiBox />
-        <Text>Market</Text>
-      </NavLink>
-      <NavLink className={classes.navLink} to="/hehe">
-        <BiArchiveOut />
-        <Text>Sell</Text>
-      </NavLink>
-      <NavLink className={classes.navLink} to="/sample">
-        <BiBorderAll />
-        <Text>Inventory</Text>
-      </NavLink>
-    </>
-  );
-
-  const actionButtons = (
-    <>
-      <Button variant="default" component={Link} to="/login">
-        Log in
-      </Button>
-      <Button
-        variant="gradient"
-        gradient={{ from: 'indigo', to: 'cyan' }}
-        component={Link}
-        to="/signup"
-      >
-        Sign up
-      </Button>
-    </>
-  );
 
   return (
     <Header fixed>
@@ -109,27 +90,23 @@ export function Nav() {
             sx={{ display: smallScreen ? 'block' : 'none' }}
           />
           <Logo />
-          {burgerOpened && (
-            <nav
-              className={classes.drawer}
-              onClick={() => setBurgerOpened((current) => !current)}
-            >
-              <Stack>
-                <TextInput
-                  aria-label="Search"
-                  placeholder="Search..."
-                  icon={<BiSearch />}
-                  size="md"
-                />
-                {navLinks}
-                {actionButtons}
-              </Stack>
-            </nav>
-          )}
-
-          <Group sx={{ display: smallScreen ? 'none' : 'flex' }}>
-            {navLinks}
-          </Group>
+          <nav
+            className={cx(classes.drawer, { [classes.active]: burgerOpened })}
+            onClick={() => setBurgerOpened(false)}
+          >
+            <NavLink className={classes.navLink} to="/">
+              <BiBox />
+              <Text>Market</Text>
+            </NavLink>
+            <NavLink className={classes.navLink} to="/hehe">
+              <BiArchiveOut />
+              <Text>Sell</Text>
+            </NavLink>
+            <NavLink className={classes.navLink} to="/sample">
+              <BiBorderAll />
+              <Text>Inventory</Text>
+            </NavLink>
+          </nav>
           <TextInput
             aria-label="Search"
             placeholder="Search..."
@@ -140,7 +117,11 @@ export function Nav() {
           {currentUser ? (
             <Menu width={200} position="bottom-end">
               <Menu.Target>
-                <Avatar src={currentUser.photoURL} radius="xl" size="sm" />
+                <Avatar
+                  src={currentUser.photoURL}
+                  radius="xl"
+                  sx={{ cursor: 'pointer' }}
+                />
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Label>Account</Menu.Label>
@@ -154,7 +135,19 @@ export function Nav() {
               </Menu.Dropdown>
             </Menu>
           ) : (
-            <Group>{actionButtons}</Group>
+            <Group>
+              <Button variant="default" component={Link} to="/login">
+                Log in
+              </Button>
+              <Button
+                variant="gradient"
+                gradient={{ from: 'indigo', to: 'cyan' }}
+                component={Link}
+                to="/signup"
+              >
+                Sign up
+              </Button>
+            </Group>
           )}
         </Group>
       </Container>

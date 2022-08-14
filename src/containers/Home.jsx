@@ -96,7 +96,7 @@ export function Home() {
   return (
     <>
       <Hero />
-      <Title order={3} mt="xl" mb="md">
+      <Title order={4} mt="xl" mb="md">
         Market
       </Title>
       <SimpleGrid
