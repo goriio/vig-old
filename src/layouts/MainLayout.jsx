@@ -7,7 +7,7 @@ export function MainLayout() {
     <>
       <Nav />
       <Container my="80px">
-        <main>
+        <main style={{ minHeight: '60vh' }}>
           <Outlet />
         </main>
       </Container>

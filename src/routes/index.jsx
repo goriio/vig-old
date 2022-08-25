@@ -4,6 +4,7 @@ import { MainLayout } from '../layouts/MainLayout';
 import { Container } from '@mantine/core';
 import { SignupForm } from '../components/SignupForm';
 import { Home } from '../containers/Home';
+import { NotFound } from '../containers/NotFound';
 
 export function AppRoutes() {
   return (
@@ -34,7 +35,7 @@ export function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/hehe" element={<h1>Hehe</h1>} />
         <Route path="/sample" element={<h1>Sample</h1>} />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
