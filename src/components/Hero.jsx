@@ -33,6 +33,7 @@ export function Hero() {
               position: 'absolute',
               top: '0.5rem',
               right: '0.5rem',
+              fontSize: '2rem',
               zIndex: '1',
             }}
             onClick={() => {

@@ -63,7 +63,7 @@ export function LoginForm() {
             </Button>
           </Stack>
         </form>
-        <Divider labelPosition="center" label="or" my="sm" />
+        <Divider labelPosition="center" label="or" />
         <Button onClick={handleSignInWithGoogle}>Login with Google</Button>
         <Center>
           <Text size="sm" mt="sm">
