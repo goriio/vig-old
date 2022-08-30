@@ -1,14 +1,20 @@
-import { Card, Image, Text } from '@mantine/core';
+import { Card, Image, Skeleton, Text } from '@mantine/core';
 
-export function ItemCard({ label, image, price }) {
+export function ItemCard({ title, image, price }) {
   return (
     <Card>
       <Card.Section p="md" shadow="sm">
-        <Image src={image} alt={label} />
-        <Text size="sm">{label}</Text>
-        <Text color="blue" size="xs">
-          PHP {price}
+        <Image
+          src={image}
+          alt={title}
+          mb="md"
+          withPlaceholder
+          placeholder={<Skeleton height={90} />}
+        />
+        <Text color="blue" size="sm">
+          {title}
         </Text>
+        <Text size="xs">PHP {price}</Text>
       </Card.Section>
     </Card>
   );

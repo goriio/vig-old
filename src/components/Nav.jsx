@@ -98,18 +98,18 @@ export function Nav() {
               <BiBox />
               <Text>Market</Text>
             </NavLink>
-            <NavLink className={classes.navLink} to="/hehe">
+            <NavLink className={classes.navLink} to="/sell">
               <BiArchiveOut />
               <Text>Sell</Text>
             </NavLink>
-            <NavLink className={classes.navLink} to="/sample">
+            <NavLink className={classes.navLink} to="/inventory">
               <BiBorderAll />
               <Text>Inventory</Text>
             </NavLink>
           </nav>
           <TextInput
             aria-label="Search"
-            placeholder="Search..."
+            placeholder="Search for virtual items"
             icon={<BiSearch />}
             size="md"
             sx={{ display: smallScreen ? 'none' : 'block' }}

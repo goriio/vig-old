@@ -6,6 +6,8 @@ import { SignupForm } from '../components/SignupForm';
 import { Home } from '../containers/Home';
 import { NotFound } from '../containers/NotFound';
 import { useAuth } from '../contexts/AuthContext';
+import { Inventory } from '../containers/Inventory';
+import { Sell } from '../containers/Sell';
 
 function PublicRoutes() {
   const { currentUser } = useAuth();
@@ -20,34 +22,6 @@ function ProtectedRoutes() {
 export function AppRoutes() {
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={
-          <Container
-            size="xs"
-            sx={{ display: 'grid', placeItems: 'center', height: '100vh' }}
-          >
-            <LoginForm />
-          </Container>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <Container
-            size="xs"
-            sx={{ display: 'grid', placeItems: 'center', height: '100vh' }}
-          >
-            <SignupForm />
-          </Container>
-        }
-      />
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/hehe" element={<h1>Hehe</h1>} />
-        <Route path="/sample" element={<h1>Sample</h1>} />
-        <Route path="*" element={<NotFound />} />
-      </Route>
       <Route path="/" element={<PublicRoutes />}>
         <Route
           path="/login"
@@ -75,8 +49,8 @@ export function AppRoutes() {
 
       <Route path="/" element={<ProtectedRoutes />}>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/hehe" element={<h1>Hehe</h1>} />
-          <Route path="/sample" element={<h1>Sample</h1>} />
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Route>
       </Route>
 
