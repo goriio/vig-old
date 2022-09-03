@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Purchase } from './Purchase';
 
-export function ItemCard({ title, image, price }) {
+export function ItemCard({ item }) {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -21,15 +21,15 @@ export function ItemCard({ title, image, price }) {
     <>
       <Card onClick={handleClick} sx={{ cursor: 'pointer' }}>
         <Card.Section p="md" shadow="sm">
-          <Image src={image} alt={title} mb="md" withPlaceholder />
+          <Image src={item.image} alt={item.title} mb="md" withPlaceholder />
           <Text color="blue" size="sm" mb="auto">
-            {title}
+            {item.title}
           </Text>
-          <Badge>PHP {price}</Badge>
+          <Badge>PHP {item.price}</Badge>
         </Card.Section>
       </Card>
       <Purchase
-        item={{ title, image, price }}
+        item={item}
         opened={isModalOpened}
         setOpened={setIsModalOpened}
       />

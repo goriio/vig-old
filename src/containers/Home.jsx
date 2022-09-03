@@ -3,15 +3,21 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Hero } from '../components/Hero';
 import { ItemList } from '../components/ItemList';
+import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 
 export function Home() {
   const [items, setItems] = useState(null);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     (async () => {
       const items = await getDocs(
-        query(collection(db, 'items'), where('inMarket', '==', true))
+        query(
+          collection(db, 'items'),
+          where('inMarket', '==', true),
+          where('owner.id', '!=', currentUser.uid)
+        )
       );
       setItems(items);
     })();
@@ -20,7 +26,6 @@ export function Home() {
   return (
     <>
       <Hero />
-
       <ItemList title="Market" items={items} />
     </>
   );

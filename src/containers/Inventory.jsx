@@ -18,7 +18,6 @@ export function Inventory() {
           where('owner.id', '==', currentUser.uid)
         )
       );
-      console.log(items.docs);
       setItems(items);
     })();
   }, []);

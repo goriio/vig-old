@@ -22,12 +22,7 @@ export function ItemList({ title, items, noItem }) {
         {items ? (
           items.docs?.length ? (
             items.docs?.map((item) => (
-              <ItemCard
-                key={item.id}
-                title={item.data().title}
-                image={item.data().image}
-                price={item.data().price}
-              />
+              <ItemCard key={item.id} item={{ id: item.id, ...item.data() }} />
             ))
           ) : (
             <Center

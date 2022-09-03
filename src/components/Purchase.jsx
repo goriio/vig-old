@@ -15,9 +15,13 @@ import { useState } from 'react';
 import { BiCheck } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import GCashLogo from '../assets/gcash-logo.png';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
 
 export function Purchase({ opened, setOpened, item }) {
   const [active, setActive] = useState(0);
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () =>
@@ -37,6 +41,34 @@ export function Purchase({ opened, setOpened, item }) {
   });
 
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  async function handlePurchase({ number }) {
+    try {
+      setPurchaseLoading(true);
+      await updateDoc(doc(db, 'items', item.id), {
+        'owner.id': currentUser.uid,
+        'owner.wallet': number,
+        inMarket: false,
+      });
+      showNotification({
+        title: '🎉 Successful transaction',
+        message: 'You have purchased the item.',
+        icon: <BiCheck />,
+        color: 'teal',
+      });
+
+      nextStep();
+    } catch (error) {
+      showNotification({
+        title: 'Something went wrong',
+        message: error.message,
+        color: 'red',
+      });
+    } finally {
+      setPurchaseLoading(false);
+    }
+  }
 
   return (
     <Modal
@@ -80,17 +112,7 @@ export function Purchase({ opened, setOpened, item }) {
           </Group>
         </Stepper.Step>
         <Stepper.Step label="Step 2" description="Purchase">
-          <form
-            onSubmit={form.onSubmit(() => {
-              showNotification({
-                title: '🎉 Successful transaction',
-                message: 'You successfully purchased the item.',
-                icon: <BiCheck />,
-                color: 'teal',
-              });
-              nextStep();
-            })}
-          >
+          <form onSubmit={form.onSubmit(handlePurchase)}>
             <Stack>
               <Text align="center" weight="bold">
                 Pay with
@@ -115,7 +137,9 @@ export function Purchase({ opened, setOpened, item }) {
               <Button type="button" variant="default" onClick={prevStep}>
                 Back
               </Button>
-              <Button type="submit">Buy</Button>
+              <Button type="submit" loading={purchaseLoading}>
+                Buy
+              </Button>
             </Group>
           </form>
         </Stepper.Step>
