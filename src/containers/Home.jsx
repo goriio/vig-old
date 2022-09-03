@@ -20,6 +20,7 @@ export function Home() {
   return (
     <>
       <Hero />
+
       <ItemList title="Market" items={items} />
     </>
   );
