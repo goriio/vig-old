@@ -20,7 +20,9 @@ export function Home() {
               where('owner.id', '!=', currentUser.uid)
             )
           )
-        : null;
+        : await getDocs(
+            query(collection(db, 'items'), where('inMarket', '==', true))
+          );
       setItems(items);
     })();
   }, [currentUser]);

@@ -27,11 +27,7 @@ export function Sell() {
       title="Sell"
       items={items}
       noItem={{
-        message: `You don't have items in sell`,
-        redirect: {
-          link: '/inventory',
-          message: 'Try to add in inventory',
-        },
+        message: `You don't have items on sell`,
       }}
     />
   );

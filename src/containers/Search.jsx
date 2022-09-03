@@ -3,21 +3,31 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ItemList } from '../components/ItemList';
+import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase';
 
 export function Search() {
   const { string } = useParams();
   const [items, setItems] = useState(null);
   const [filtered, setFiltered] = useState(null);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     (async () => {
-      const items = await getDocs(
-        query(collection(db, 'items'), where('inMarket', '==', true))
-      );
+      const items = currentUser
+        ? await getDocs(
+            query(
+              collection(db, 'items'),
+              where('inMarket', '==', true),
+              where('owner.id', '!=', currentUser.uid)
+            )
+          )
+        : await getDocs(
+            query(collection(db, 'items'), where('inMarket', '==', true))
+          );
       setItems(items);
     })();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     if (items?.docs) {

@@ -33,7 +33,9 @@ export function ItemList({ title, items, noItem }) {
               }}
             >
               <Stack>
-                <Title order={2}>{noItem.message}</Title>
+                <Title order={2} color="dimmed">
+                  {noItem.message}
+                </Title>
                 {noItem.redirect && (
                   <Link to={noItem.redirect.link}>
                     {noItem.redirect.message}
@@ -43,7 +45,7 @@ export function ItemList({ title, items, noItem }) {
             </Center>
           )
         ) : (
-          Array.from({ length: 6 }).map((_, index) => (
+          Array.from({ length: 12 }).map((_, index) => (
             <Skeleton key={index} height={180} />
           ))
         )}

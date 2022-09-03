@@ -25,7 +25,7 @@ const useStyles = createStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    color: theme.white,
+    color: theme.colors.gray[6],
     fontSize: '1rem',
     fontWeight: 'bold',
     textDecoration: 'none',
@@ -114,8 +114,7 @@ export function Nav() {
               event.preventDefault();
               if (search.trim() === '') {
                 showNotification({
-                  title: 'red',
-                  message: 'You did not input',
+                  message: 'You did not input something',
                   color: 'red',
                 });
                 return;

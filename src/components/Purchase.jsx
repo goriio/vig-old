@@ -151,7 +151,7 @@ export function Purchase({ opened, setOpened, item }) {
             <Text align="center" size="sm" color="dimmed">
               You can view your purchased virtual items
               <br />
-              on your inventory.
+              in your inventory.
             </Text>
           </Stack>
           <Group grow position="right" mt="xl">
