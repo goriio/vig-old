@@ -20,8 +20,8 @@ export function ItemList({ title, items, noItem }) {
         style={{ position: 'relative' }}
       >
         {items ? (
-          items.docs.length ? (
-            items.docs.map((item) => (
+          items.docs?.length ? (
+            items.docs?.map((item) => (
               <ItemCard
                 key={item.id}
                 title={item.data().title}
@@ -39,12 +39,16 @@ export function ItemList({ title, items, noItem }) {
             >
               <Stack>
                 <Title order={2}>{noItem.message}</Title>
-                <Link to={noItem.redirect.link}>{noItem.redirect.message}</Link>
+                {noItem.redirect && (
+                  <Link to={noItem.redirect.link}>
+                    {noItem.redirect.message}
+                  </Link>
+                )}
               </Stack>
             </Center>
           )
         ) : (
-          Array.from({ length: 12 }).map((_, index) => (
+          Array.from({ length: 6 }).map((_, index) => (
             <Skeleton key={index} height={180} />
           ))
         )}

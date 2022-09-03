@@ -9,7 +9,7 @@ export function ItemCard({ title, image, price }) {
           alt={title}
           mb="md"
           withPlaceholder
-          placeholder={<Skeleton height={90} />}
+          placeholder={<Skeleton height={100} />}
         />
         <Text color="blue" size="sm">
           {title}

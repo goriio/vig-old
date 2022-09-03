@@ -7,12 +7,12 @@ import {
   Group,
   Header,
   Menu,
-  Stack,
   Text,
   TextInput,
   useMantineTheme,
 } from '@mantine/core';
-import { NavLink, Link } from 'react-router-dom';
+import { showNotification } from '@mantine/notifications';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Logo } from './Logo';
 import { BiBox, BiBorderAll, BiArchiveOut, BiLogOut } from 'react-icons/bi';
 import { useState } from 'react';
@@ -74,10 +74,12 @@ const useStyles = createStyles((theme) => ({
 
 export function Nav() {
   const [burgerOpened, setBurgerOpened] = useState(false);
+  const [search, setSearch] = useState('');
   const { classes, cx } = useStyles();
   const { currentUser, handleSignOut } = useAuth();
   const theme = useMantineTheme();
   const smallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px`);
+  const navigate = useNavigate();
 
   return (
     <Header fixed>
@@ -107,13 +109,32 @@ export function Nav() {
               <Text>Inventory</Text>
             </NavLink>
           </nav>
-          <TextInput
-            aria-label="Search"
-            placeholder="Search for virtual items"
-            icon={<BiSearch />}
-            size="md"
-            sx={{ display: smallScreen ? 'none' : 'block' }}
-          />
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (search.trim() === '') {
+                showNotification({
+                  title: 'red',
+                  message: 'You did not input',
+                  color: 'red',
+                });
+                return;
+              }
+              navigate(`/search/${search}`);
+            }}
+          >
+            <TextInput
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+              }}
+              aria-label="Search"
+              placeholder="Search for virtual items"
+              icon={<BiSearch />}
+              size="md"
+              sx={{ display: smallScreen ? 'none' : 'block' }}
+            />
+          </form>
           {currentUser ? (
             <Menu width={200} position="bottom-end">
               <Menu.Target>

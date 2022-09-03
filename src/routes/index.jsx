@@ -8,6 +8,7 @@ import { NotFound } from '../containers/NotFound';
 import { useAuth } from '../contexts/AuthContext';
 import { Inventory } from '../containers/Inventory';
 import { Sell } from '../containers/Sell';
+import { Search } from '../containers/Search';
 
 function PublicRoutes() {
   const { currentUser } = useAuth();
@@ -56,6 +57,7 @@ export function AppRoutes() {
 
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path="/search/:string" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
