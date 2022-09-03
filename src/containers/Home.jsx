@@ -12,16 +12,18 @@ export function Home() {
 
   useEffect(() => {
     (async () => {
-      const items = await getDocs(
-        query(
-          collection(db, 'items'),
-          where('inMarket', '==', true),
-          where('owner.id', '!=', currentUser.uid)
-        )
-      );
+      const items = currentUser
+        ? await getDocs(
+            query(
+              collection(db, 'items'),
+              where('inMarket', '==', true),
+              where('owner.id', '!=', currentUser.uid)
+            )
+          )
+        : null;
       setItems(items);
     })();
-  }, []);
+  }, [currentUser]);
 
   return (
     <>

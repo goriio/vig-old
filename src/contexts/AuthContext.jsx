@@ -27,6 +27,9 @@ export function AuthProvider({ children }) {
   async function handleSignUpWithEmailAndPassword({ email, password }) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      showNotification({
+        message: 'Account successfully created',
+      });
       navigate('/');
     } catch (error) {
       showNotification({
@@ -39,6 +42,9 @@ export function AuthProvider({ children }) {
   async function handleSignInWithEmailAndPassword({ email, password }) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      showNotification({
+        message: 'You are now signed in',
+      });
       navigate('/');
     } catch (error) {
       let message = '';
@@ -59,6 +65,9 @@ export function AuthProvider({ children }) {
   async function handleSignInWithGoogle() {
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
+      showNotification({
+        message: 'You are now signed in',
+      });
       navigate('/');
     } catch (error) {
       showNotification({
@@ -71,6 +80,9 @@ export function AuthProvider({ children }) {
   async function handleSignOut() {
     try {
       await signOut(auth);
+      showNotification({
+        message: 'You are now signed out',
+      });
       navigate('/');
     } catch (error) {
       showNotification({
