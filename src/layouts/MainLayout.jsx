@@ -1,5 +1,5 @@
 import { Nav } from '../components/Nav';
-import { Container, Footer, Text } from '@mantine/core';
+import { Container, Footer, Group, Text } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 
 export function MainLayout() {
@@ -13,9 +13,15 @@ export function MainLayout() {
       </Container>
       <Footer p="md" mt="lg">
         <Container>
-          <Text size="sm" color="dimmed">
-            &copy; {new Date().getFullYear()} VIG
-          </Text>
+          <Group position="apart">
+            <Text size="sm" color="dimmed">
+              &copy; {new Date().getFullYear()} VIG
+            </Text>
+
+            <Text size="sm" color="dimmed">
+              VIG is not affiliated with nor endorsed by VALVE corporation.
+            </Text>
+          </Group>
         </Container>
       </Footer>
     </>
