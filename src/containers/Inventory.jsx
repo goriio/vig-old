@@ -9,8 +9,6 @@ export function Inventory() {
   const [items, setItems] = useState(null);
   const { currentUser } = useAuth();
 
-  const [key, setKey] = useState(0);
-
   useEffect(() => {
     (async () => {
       const items = await getDocs(
@@ -31,7 +29,6 @@ export function Inventory() {
       noItem={{
         message: `You don't have items in inventory`,
       }}
-      setKey={setKey}
     />
   );
 }

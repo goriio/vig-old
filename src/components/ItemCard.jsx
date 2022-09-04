@@ -13,7 +13,7 @@ export function ItemCard({ item }) {
   const [moving, setMoving] = useState(false);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const isOwner = currentUser.uid === item.owner.id;
+  const isOwner = currentUser?.uid === item.owner.id;
 
   function handleClick() {
     if (!currentUser) {
