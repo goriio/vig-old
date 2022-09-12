@@ -1,15 +1,21 @@
-import { Center, SimpleGrid, Skeleton, Stack, Title } from '@mantine/core';
+import {
+  Center,
+  Group,
+  SimpleGrid,
+  Skeleton,
+  Stack,
+  Title,
+} from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { ItemCard } from './ItemCard';
 
-export function ItemList({ title, items, noItem }) {
+export function ItemList({ title, rightButton, items, noItem }) {
   return (
     <>
-      {title && (
-        <Title order={4} mt="xl" mb="md">
-          {title}
-        </Title>
-      )}
+      <Group position="apart" mt="xl" mb="md">
+        {title && <Title order={4}>{title}</Title>}
+        {rightButton}
+      </Group>
       <SimpleGrid
         cols={6}
         breakpoints={[

@@ -18,7 +18,6 @@ import GCashLogo from '../assets/gcash-logo.png';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
-import { PredictionChart } from './PredictionChart';
 
 export function Purchase({ opened, setOpened, item }) {
   const [active, setActive] = useState(0);
@@ -103,27 +102,6 @@ export function Purchase({ opened, setOpened, item }) {
               </Text>
               . Would you like to buy it?
             </Text>
-            <PredictionChart
-              datasetIdKey={item.title}
-              labels={[
-                'Sep 8',
-                'Sep 9',
-                'Sep 10',
-                'Sep 11',
-                'Sep 12',
-                'Sep 13',
-                'Sep 14',
-              ]}
-              data={[
-                Number(item.price),
-                Number(item.price) - 1,
-                Number(item.price),
-                Number(item.price) + 3,
-                Number(item.price) + 2,
-                Number(item.price),
-                Number(item.price) + 1,
-              ]}
-            />
           </Stack>
           <Group grow position="right" mt="xl">
             <Button variant="default" onClick={() => setOpened(false)}>

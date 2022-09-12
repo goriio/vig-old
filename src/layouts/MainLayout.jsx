@@ -17,7 +17,6 @@ export function MainLayout() {
             <Text size="sm" color="dimmed">
               &copy; {new Date().getFullYear()} VIG
             </Text>
-
             <Text size="sm" color="dimmed">
               VIG is not affiliated with nor endorsed by VALVE corporation.
             </Text>
