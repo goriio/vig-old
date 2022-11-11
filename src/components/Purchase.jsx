@@ -33,9 +33,9 @@ export function Purchase({ opened, setOpened, item }) {
     validate: {
       number: (value) =>
         !value
-          ? 'Phone number is required'
-          : !/^9\d{9}/.test(value)
-          ? 'Invalid number'
+          ? 'Reference number is required'
+          : !/^\d{11}/.test(value)
+          ? 'Invalid reference number'
           : null,
     },
   });
@@ -96,7 +96,7 @@ export function Purchase({ opened, setOpened, item }) {
               {item.title}
             </Text>
             <Text align="center" size="sm" color="dimmed">
-              The item's current price is{' '}
+              The item's price is{' '}
               <Text color="blue" span>
                 PHP {item.price}
               </Text>
@@ -114,21 +114,21 @@ export function Purchase({ opened, setOpened, item }) {
           <form onSubmit={form.onSubmit(handlePurchase)}>
             <Stack>
               <Text align="center" weight="bold">
-                Pay with
                 <Image
                   src={GCashLogo}
                   alt="GCash Logo"
                   height={50}
                   fit="contain"
                 />
+                <Text>
+                  Pay P{item.price} to {item.owner.wallet}
+                </Text>
               </Text>
               <NumberInput
-                placeholder="9123456789"
-                label="Your phone number"
+                placeholder="00012345678"
+                label="Payment Reference Number"
                 hideControls
-                icon="+63"
                 size="md"
-                maxLength={10}
                 {...form.getInputProps('number')}
               />
             </Stack>
