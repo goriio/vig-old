@@ -97,7 +97,7 @@ export function Inventory() {
   return (
     <>
       <Modal
-        title="Add a virtual item"
+        title="Add a virtual item to inventory"
         opened={opened}
         onClose={() => setOpened(false)}
       >
@@ -124,7 +124,7 @@ export function Inventory() {
               placeholder="09123456789"
               {...form.getInputProps('wallet')}
             />
-            <Button type="submit" loading={adding}>
+            <Button type="submit" loading={adding} mt="sm">
               Add item
             </Button>
           </Stack>

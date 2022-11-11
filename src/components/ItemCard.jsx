@@ -1,4 +1,4 @@
-import { Button, Card, Image, Text } from '@mantine/core';
+import { Button, Card, Group, Image, Modal, Text } from '@mantine/core';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -9,7 +9,7 @@ import { showNotification } from '@mantine/notifications';
 import { BiCheck } from 'react-icons/bi';
 
 export function ItemCard({ item }) {
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [opened, setOpened] = useState(false);
   const [moving, setMoving] = useState(false);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export function ItemCard({ item }) {
       navigate('/login');
       return;
     }
-    setIsModalOpened(true);
+    setOpened(true);
   }
 
   async function moveToInventory() {
@@ -31,7 +31,7 @@ export function ItemCard({ item }) {
       });
       navigate('/inventory');
       showNotification({
-        message: 'The item has been moved to inventory.',
+        message: `${item.title} has been moved to inventory.`,
         icon: <BiCheck />,
         color: 'teal',
       });
@@ -43,6 +43,7 @@ export function ItemCard({ item }) {
       });
     } finally {
       setMoving(false);
+      setOpened(false);
     }
   }
 
@@ -54,7 +55,7 @@ export function ItemCard({ item }) {
       });
       navigate('/sell');
       showNotification({
-        message: 'The item is now on sell.',
+        message: `${item.title} is now on sell.`,
         icon: <BiCheck />,
         color: 'teal',
       });
@@ -66,6 +67,7 @@ export function ItemCard({ item }) {
       });
     } finally {
       setMoving(false);
+      setOpened(false);
     }
   }
 
@@ -81,36 +83,39 @@ export function ItemCard({ item }) {
             PHP {item.price}
           </Text>
         </Card.Section>
-        {isOwner ? (
-          item.inMarket ? (
-            <Button
-              fullWidth
-              variant="default"
-              onClick={moveToInventory}
-              size="xs"
-              loading={moving}
-            >
-              Inventory
-            </Button>
-          ) : (
-            <Button
-              fullWidth
-              variant="default"
-              onClick={moveToSell}
-              size="xs"
-              loading={moving}
-            >
-              Sell
-            </Button>
-          )
-        ) : null}
       </Card>
       {!isOwner && (
-        <Purchase
-          item={item}
-          opened={isModalOpened}
-          setOpened={setIsModalOpened}
-        />
+        <Purchase item={item} opened={opened} setOpened={setOpened} />
+      )}
+      {isOwner && (
+        <Modal
+          opened={opened}
+          onClose={() => setOpened(false)}
+          withCloseButton={false}
+        >
+          <Text align="center" pb="lg">
+            Move "{item.title}".
+          </Text>
+          <Group position="apart" grow>
+            <Button
+              variant="subtle"
+              color="red"
+              onClick={() => setOpened(false)}
+            >
+              Cancel
+            </Button>
+
+            {item.inMarket ? (
+              <Button fullWidth onClick={moveToInventory} loading={moving}>
+                Inventory
+              </Button>
+            ) : (
+              <Button fullWidth onClick={moveToSell} loading={moving}>
+                Sell
+              </Button>
+            )}
+          </Group>
+        </Modal>
       )}
     </>
   );
