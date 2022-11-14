@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Button, Group, Indicator } from '@mantine/core';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -29,9 +29,16 @@ export function Sell() {
     <ItemList
       title="Sell"
       rightButton={
-        <Button variant="outline" onClick={() => navigate('/sales-report')}>
-          View sales report
-        </Button>
+        <Group>
+          <Button variant="subtle" onClick={() => navigate('/sales-report')}>
+            View sales report
+          </Button>
+          <Indicator inline dot processing label={1} size={22}>
+            <Button variant="light" onClick={() => navigate('/sales')}>
+              Sales
+            </Button>
+          </Indicator>
+        </Group>
       }
       items={items}
       noItem={{

@@ -10,6 +10,7 @@ import { Inventory } from '../containers/Inventory';
 import { Sell } from '../containers/Sell';
 import { Search } from '../containers/Search';
 import { SalesReport } from '../containers/SalesReport';
+import { Sales } from '../containers/Sales';
 
 function PublicRoutes() {
   const { currentUser } = useAuth();
@@ -54,6 +55,7 @@ export function AppRoutes() {
           <Route path="/sell" element={<Sell />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/sales-report" element={<SalesReport />} />
+          <Route path="/sales" element={<Sales />} />
         </Route>
       </Route>
 

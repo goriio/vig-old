@@ -82,7 +82,7 @@ export function Nav() {
   const navigate = useNavigate();
 
   return (
-    <Header fixed>
+    <Header fixed style={{ zIndex: '200' }}>
       <Container>
         <Group sx={{ height: 60 }} position="apart" align="center">
           <Burger

@@ -75,7 +75,7 @@ export function ItemCard({ item }) {
     <>
       <Card onClick={handleClick} sx={{ cursor: 'pointer' }}>
         <Card.Section p="md" shadow="sm">
-          <Image src={item.image} alt={item.title} mb="md" withPlaceholder />
+          <Image height={100} fit="contain" src={item.image} alt={item.title} mb="md" withPlaceholder />
           <Text size="sm" mb="xs">
             {item.title}
           </Text>

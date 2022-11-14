@@ -4,10 +4,10 @@ import {
   Group,
   Image,
   Modal,
-  NumberInput,
   Stack,
   Stepper,
   Text,
+  TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
@@ -28,7 +28,7 @@ export function Purchase({ opened, setOpened, item }) {
     setActive((current) => (current > 0 ? current - 1 : current));
   const form = useForm({
     initialValues: {
-      number: null,
+      number: '',
     },
     validate: {
       number: (value) =>
@@ -47,13 +47,13 @@ export function Purchase({ opened, setOpened, item }) {
     try {
       setPurchaseLoading(true);
       await updateDoc(doc(db, 'items', item.id), {
-        'owner.id': currentUser.uid,
-        'owner.wallet': number,
+        'buyer.id': currentUser.uid,
+        'buyer.number': number,
         inMarket: false,
       });
       showNotification({
-        title: '🎉 Successful transaction',
-        message: 'You have purchased the item.',
+        title: '🎉 Successful',
+        message: 'The owner has been notified.',
         icon: <BiCheck />,
         color: 'teal',
       });
@@ -121,13 +121,12 @@ export function Purchase({ opened, setOpened, item }) {
                   fit="contain"
                 />
                 <Text>
-                  Pay P{item.price} to {item.owner.wallet}
+                  Pay PHP {item.price} to {item.owner.wallet}
                 </Text>
               </Text>
-              <NumberInput
+              <TextInput
                 placeholder="00012345678"
                 label="Payment Reference Number"
-                hideControls
                 size="md"
                 {...form.getInputProps('number')}
               />

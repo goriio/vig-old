@@ -6,7 +6,6 @@ import {
   Stack,
   Title,
 } from '@mantine/core';
-import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ItemCard } from './ItemCard';
 

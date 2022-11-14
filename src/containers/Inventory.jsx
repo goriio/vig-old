@@ -1,4 +1,11 @@
-import { Button, Modal, NumberInput, Stack, TextInput } from '@mantine/core';
+import {
+  Button,
+  Image,
+  Modal,
+  NumberInput,
+  Stack,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import {
@@ -26,7 +33,7 @@ export function Inventory() {
       title: '',
       price: '',
       image: '',
-      wallet: '',
+      wallet: localStorage.getItem('wallet') || '',
     },
     validate: {
       title: (value) => (!value ? 'Item name is required' : null),
@@ -60,6 +67,8 @@ export function Inventory() {
   }, []);
 
   async function addItem({ title, price, image, wallet }) {
+    localStorage.setItem('wallet', wallet);
+
     const item = {
       createdAt: Timestamp.now(),
       inMarket: false,
@@ -119,8 +128,14 @@ export function Inventory() {
               placeholder="Image link (png or jpeg)"
               {...form.getInputProps('image')}
             />
+            <Image
+              height={200}
+              fit="contain"
+              src={form.values.image}
+              withPlaceholder
+            />
             <TextInput
-              label="Phone number"
+              label="Your GCash"
               placeholder="09123456789"
               {...form.getInputProps('wallet')}
             />
@@ -133,7 +148,7 @@ export function Inventory() {
       <ItemList
         title="Inventory"
         rightButton={
-          <Button variant="outline" onClick={() => setOpened(true)}>
+          <Button variant="light" onClick={() => setOpened(true)}>
             Add Item
           </Button>
         }
